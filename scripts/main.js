@@ -51,8 +51,17 @@ const getRouteStreetNames = (route) => {
     return finalStreetNames
 }
 
+const getTrafficIncidents = (latLongArray) => {
+    console.log("latLongArray", latLongArray)
+    const fixedLatLongString = latLongArray.replaceAll(",", "%2C")
+    console.log("fixed",fixedLatLongString, typeof(fixedLatLongString))
 
-const getTrafficIncidents = (latLongArray) => {}
+    // Finally get Traff Incident data back but somehow also still getting a 400 error?
+    return fetch(`https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=${fixedLatLongString}%3B1000&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
+    .then(res => res.json())
+    .then(res => console.log(res))
+}
+
 // NOTE: set street address and state as required inputs
 const originStreet = "1320+Blue+Ridge+Circle"
 const originCity = "Mobile,"
@@ -81,16 +90,21 @@ getLatLong(`${originStreet}+${originCity}%2C${originState}+${originZip}`)
     const FormattedStreetNames = streetNamesArray.map(string => string.replaceAll(" ", "+"))
     FormattedStreetNames[0] += `%2C${originZip}`
     FormattedStreetNames[1] += `%2C${destinationZip}`
-    const finalLatLong = []
+    let finalLatLong = []
+    console.log("formattedStreetNames", FormattedStreetNames)
     FormattedStreetNames.map(streetName => {
-        getLatLong(streetName)
+        // Runs each street name string through the geocoder API to the lat/long
+        return getLatLong(streetName)
         .then(options => {
             console.log("options",options)
-            options.items.map(item => item.title.includes(`${originCity}`) || item.title.includes(`${destinationCity}`) ? finalLatLong.push(item.position) : item)
-            return finalLatLong
+            // maps returned options and chooses whichever lat/long pair from the object that contains the origin or destination city name 
+            // returns array of lat/long objects
+            options.items.map(item => item.title.includes(`${originCity}`) || item.title.includes(`${destinationCity}`) ? finalLatLong.push(Object.values(item.position)) : item)
+            // return finalLatLong
         }).then(res => {
             // debugger
-            console.log(finalLatLong)
+            console.log("finalLatLong",finalLatLong)
+            getTrafficIncidents(finalLatLong.join("%3B"))
         })
     })
 })
