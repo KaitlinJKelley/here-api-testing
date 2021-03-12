@@ -60,6 +60,7 @@ const getRouteStreetNames = (route) => {
 // Returns collection of traffic incidents along the given path, based on provided width
 const getTrafficIncidents = (latLongArray) => {
     console.log("latLongArray", latLongArray)
+    debugger
     const fixedLatLongString = latLongArray.replaceAll(",", "%2C")
     console.log("fixed",fixedLatLongString, typeof(fixedLatLongString))
 
@@ -77,7 +78,6 @@ const getTrafficIncidents = (latLongArray) => {
         }
     })
     .then(res => res.json())
-    .catch(err => {console.log("error")})
     .then(res => console.log("response",res))
 }
 
@@ -115,21 +115,39 @@ getLatLong(`${originStreet}+${originCity}%2C${originState}+${originZip}`)
     let finalLatLong = []
     console.log("formattedStreetNames", FormattedStreetNames)
     // Maps the formatted street names and gets lat/long for each
-    FormattedStreetNames.map(streetName => {
+    let promise = FormattedStreetNames.map(streetName => {
         // Runs each street name string through the geocoder API to the lat/long
+        // debugger
         return getLatLong(streetName)
+        // .then((options => options))
         .then(options => {
-            console.log("options",options)
+            // debugger
+            // console.log("options",options)
             // maps the returned options and chooses whichever lat/long pair from the object contains the origin or destination city name 
             // returns array of lat/long objects
-            options.items.map(item => item.title.includes(`${originCity}`) || item.title.includes(`${destinationCity}`) ? finalLatLong.push(Object.values(item.position)) : item)
-        }).then(res => {
-            console.log("finalLatLong",finalLatLong)
-            // Gets traffic incidents for the user's path; line 61
-            getTrafficIncidents(finalLatLong.join("%3B"))
+            return options.items.map(item => item.title.includes(`${originCity}`) || 
+            item.title.includes(`${destinationCity}`) ? finalLatLong.push(Object.values(item.position)) : item)
         })
+        // .then(res => {
+            //     console.log("finalLatLong",finalLatLong)
+            //     // Gets traffic incidents for the user's path; line 61
+            //     getTrafficIncidents(finalLatLong.join("%3B"))
+            // })
+            // })
+        })
+        Promise.all([promise])
+        // .then((options)=>{
+            // maps the returned options and chooses whichever lat/long pair from the object contains the origin or destination city name 
+            // returns array of lat/long objects
+            // debugger
+            // options.items.map(item => item.title.includes(`${originCity}`) || 
+            // item.title.includes(`${destinationCity}`) ? finalLatLong.push(Object.values(item.position)) : item)
+            // Gets traffic incidents for the user's path; line 61
+            .then((allStreetNames) => getTrafficIncidents(allStreetNames))
+            .catch(error => {
+                
+            })
+        // })
+        // debugger
     })
-})
-
-
 
