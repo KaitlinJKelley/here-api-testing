@@ -64,9 +64,21 @@ const getTrafficIncidents = (latLongArray) => {
     console.log("fixed",fixedLatLongString, typeof(fixedLatLongString))
 
     // Finally got Traffic Incident data back but somehow also still getting a 400 error???
+    // debugger
     return fetch(`https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=${fixedLatLongString}%3B1000&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
+    .then(res => {
+        // debugger
+        if (res.ok) {
+            // debugger
+            console.log("got a good response",res) 
+            return res
+        } else {
+            console.log("you don't want that response")
+        }
+    })
     .then(res => res.json())
-    .then(res => console.log(res))
+    .catch(err => {console.log("error")})
+    .then(res => console.log("response",res))
 }
 
 // NOTE: Set all as required inputs
