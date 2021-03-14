@@ -1,3 +1,4 @@
+import {here} from "./Settings"
 console.log("Welcome to the main module")
 
 // Step 1. User inputs origin and destination addresses into route form
@@ -5,7 +6,7 @@ console.log("Welcome to the main module")
 let origin = []
 let destination = []
 const getLatLong = (address) => {
-    return fetch (`https://geocode.search.hereapi.com/v1/geocode?q=${address}&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
+    return fetch (`https://geocode.search.hereapi.com/v1/geocode?q=${address}&apiKey=${here.apiKey}`)
     .then(res => res.json())    
 }
 
@@ -13,7 +14,7 @@ const getLatLong = (address) => {
 let directions = []
 const getDirections = (origin, destination) => {
     // debugger
-    return fetch (`https://router.hereapi.com/v8/routes?transportMode=car&origin=${Object.values(origin)}&destination=${Object.values(destination)}&return=polyline,turnbyturnactions&apikey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
+    return fetch (`https://router.hereapi.com/v8/routes?transportMode=car&origin=${Object.values(origin)}&destination=${Object.values(destination)}&return=polyline,turnbyturnactions&apikey=${here.apiKey}`)
     .then(res => res.json())
     .then(res => directions = res) 
 }
@@ -67,7 +68,7 @@ const getTrafficIncidents = (latLongArray) => {
 
     // Finally got Traffic Incident data back but somehow also still getting a 400 error???
     // debugger
-    return fetch(`https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=${fixedLatLongString}%3B20&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
+    return fetch(`https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=${fixedLatLongString}%3B20&apiKey=${here.apiKey}`)
     .then(res => {
         // debugger
         if (res.ok) {
