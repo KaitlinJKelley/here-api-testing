@@ -67,7 +67,7 @@ const getTrafficIncidents = (latLongArray) => {
 
     // Finally got Traffic Incident data back but somehow also still getting a 400 error???
     // debugger
-    return fetch(`https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=${fixedLatLongString}%3B1000&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
+    return fetch(`https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=${fixedLatLongString}%3B20&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8`)
     .then(res => {
         // debugger
         if (res.ok) {
@@ -83,15 +83,17 @@ const getTrafficIncidents = (latLongArray) => {
 }
 
 // NOTE: Set all as required inputs
-const originStreet = "1320+Blue+Ridge+Circle"
-const originCity = "Mobile,"
-const originState= "AL" 
-const originZip = "36695"
+// 595 Hicks Rd, Nashville, TN 37221
+const originStreet = "595 Hicks Rd"
+const originCity = "Nashville,"
+const originState= "TN" 
+const originZip = "37221"
 
-const destinationStreet = "507+Oak+St"
-const destinationCity = "Lucedale,"
-const destinationState = "MS"
-const destinationZip = "39452"
+// 2421 Powell Ave, Nashville, TN 37204
+const destinationStreet = "2421 Powell Ave"
+const destinationCity = "Nashville,"
+const destinationState = "TN"
+const destinationZip = "37204"
 // Returns lat/long of the user's origin point
 getLatLong(`${originStreet}+${originCity}%2C${originState}+${originZip}`)
 .then(res => {

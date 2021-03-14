@@ -1,0 +1,45 @@
+Good Response
+Request URL: https://traffic.ls.hereapi.com/traffic/6.0/incidents.json?corridor=36.18377,-86.69355;36.08026,-86.92807;36.14638,-86.80963;36.18377,-86.69355%3B20&apiKey=mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8
+Request Method: GET
+Status Code: 200 OK
+Remote Address: 34.214.0.71:443
+Referrer Policy: strict-origin-when-cross-origin
+Accept-Ranges: bytes
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: GET, PUT, POST, DELETE, HEAD, OPTIONS, PATCH, PROPFIND, PROPPATCH, MKCOL, COPY, MOVE, LOCK
+Access-Control-Allow-Origin: http://localhost:5000
+Access-Control-Expose-Headers: *
+***Cache-Control: public, max-age=10
+Connection: keep-alive
+***Content-Encoding: gzip
+Content-Length: 1220
+Content-Type: application/json;charset=utf-8
+Date: Sun, 14 Mar 2021 19:43:02 GMT
+Expires: Sun, 14 Mar 2021 19:43:12 GMT
+Last-Modified: Sun, 14 Mar 2021 19:40:57 +0000
+***ServedItems: 2
+Server: openresty
+time: 247
+Vary: Accept-Charset, Accept-Language, Accept,Accept-Encoding
+X-NLP-TID: b6ec21e7-ae54-465d-bae9-03ffbd5aeecc
+X-REQ-MODE: incident-small
+X-Request-Id: REQ-0b43b758-5e84-4803-a195-f169122f0ff6
+X-Served-By: i-054fdc03e6771a84a.us-west-2b
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cache-Control: no-cache
+Connection: keep-alive
+Host: traffic.ls.hereapi.com
+Origin: http://localhost:5000
+Pragma: no-cache
+Referer: http://localhost:5000/
+sec-ch-ua: "Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"
+sec-ch-ua-mobile: ?0
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36
+corridor: 36.18377,-86.69355;36.08026,-86.92807;36.14638,-86.80963;36.18377,-86.69355;20
+apiKey: mkvFOiCVql51ufvvBHkEumYGNOj09UcGP7n5yVJ2sD8
